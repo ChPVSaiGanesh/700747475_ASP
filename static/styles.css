@@ -1,0 +1,115 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+nav {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+nav ul li a:hover {
+    background: #0056b3;
+    border-radius: 4px;
+}
+
+
+main {
+    padding: 20px;
+}
+
+.property-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.property-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    width: calc(33% - 20px);
+    box-sizing: border-box;
+}
+
+.property-item img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+
+footer {
+    background: #f8f9fa;
+    padding: 10px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+
+body.landing-page {
+    background-image: url('/static/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+}
+
+.landing-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.landing-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.landing-container .btn {
+    font-size: 1.25rem;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.landing-container .btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+}
+
+.landing-container .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.landing-container .btn-success {
+    background-color: #28a745;
+    border: none;
+    color: #fff;
+}
+
+.landing-container .btn-success:hover {
+    background-color: #218838;
+}

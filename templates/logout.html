@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0;url={{ url_for('login') }}">
+    <title>Logging out...</title>
+</head>
+<body>
+    <script>
+        window.location.replace('{{ url_for("login") }}');
+    </script>
+</body>
+</html>

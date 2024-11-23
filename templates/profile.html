@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0; 
+            padding: 0; 
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            margin-bottom: 0; 
+            padding: 0.5rem 1rem; 
+            background: linear-gradient(90deg, #0879f3, #0075f3);
+            border-bottom: 2px solid #0072eb;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: #ffffff;
+        }
+        .navbar-nav .nav-link {
+            color: #ffffff !important; 
+            font-weight: bold; 
+            border: 2px solid transparent;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            padding: 10px 15px;
+        }
+        .navbar-nav .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff !important; 
+            border: 2px solid #ffffff;
+        }
+        .navbar-nav .nav-link.active {
+            background-color: #ffffff;
+            color: #007bff !important; 
+            border: 2px solid #007bff;
+        }
+        .profile {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .profile img {
+            border-radius: 50%;
+            max-width: 150px;
+            margin-bottom: 15px;
+        }
+        .profile h2 {
+            margin-bottom: 20px;
+        }
+        .profile p {
+            margin-bottom: 10px;
+        }
+        .profile p strong {
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <a class="navbar-brand" href="#">HelloHome</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('property_listings', rent_or_buy='buy') }}">Buy</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('property_listings', rent_or_buy='rent') }}">Rent</a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('my_properties') }}">My Properties</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('profile') }}">My Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('add_property') }}">Add Property</a>
+                </li>
+                <li class="nav-item call-us">
+                    <a class="nav-link" href="tel:+1234567890">
+                        <i class="fas fa-phone-alt"></i> Call Us: +1 (816)-816-1234
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <main>
+        <div class="container" style="margin-top: 80px;"> 
+            <h1 class="mb-4">Profile</h1>
+            <div class="profile">
+                {% if is_agent %}
+                    <h2 class="mb-4">Agent Profile</h2>
+                    {% if user.profile_picture %}
+                        <img src="{{ url_for('static', filename='uploads/' ~ user.profile_picture) }}" alt="Profile Picture">
+                    {% endif %}
+                    <p><strong>First Name:</strong> {{ user.first_name }}</p>
+                    <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Phone:</strong> {{ user.phone }}</p>
+                    <p><strong>Username:</strong> {{ user.username }}</p>
+                {% else %}
+                    <h2 class="mb-4">User Profile</h2>
+                    {% if user.profile_picture %}
+                        <img src="{{ url_for('static', filename='uploads/' ~ user.profile_picture) }}" alt="Profile Picture">
+                    {% endif %}
+                    <p><strong>First Name:</strong> {{ user.first_name }}</p>
+                    <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Phone:</strong> {{ user.phone }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

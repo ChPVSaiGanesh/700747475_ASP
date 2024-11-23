@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Property</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+            margin-top: 30px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .form-control, .form-control-file {
+            border-radius: 0.25rem;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .form-header {
+            margin-bottom: 30px;
+        }
+        .form-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .invalid-feedback {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <h1>Add Property</h1>
+        </div>
+        <form action="" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="text" id="price" name="price" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="area">Area:</label>
+                <input type="text" id="area" name="area" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="bedrooms">Bedrooms:</label>
+                <select id="bedrooms" name="bedrooms" class="form-control" required>
+                    {% for i in range(1, 6) %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="bathrooms">Bathrooms:</label>
+                <select id="bathrooms" name="bathrooms" class="form-control" required>
+                    {% for i in range(1, 6) %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="parking">Parking:</label>
+                <select id="parking" name="parking" class="form-control" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="year_built">Year Built:</label>
+                <select id="year_built" name="year_built" class="form-control" required>
+                    
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="nearby_places">Nearby Places:</label>
+                <input type="text" id="nearby_places" name="nearby_places" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="contact">Contact:</label>
+                <input type="text" id="contact" name="contact" class="form-control" pattern="\d{10}" required>
+                <div class="invalid-feedback">Please enter a valid 10-digit contact number.</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="rent_or_buy">Availability:</label>
+                <select id="rent_or_buy" name="rent_or_buy" class="form-control" required>
+                    <option value="rent">Rent</option>
+                    <option value="buy">Buy</option>
+                    <option value="sold">Sold</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="images">Images:</label>
+                <input type="file" id="images" name="images" class="form-control-file" multiple required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Add Property</button>
+        </form>
+    </div>
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var yearSelect = document.getElementById('year_built');
+            var currentYear = new Date().getFullYear();
+            var startYear = currentYear - 10;
+
+            for (var year = startYear; year <= currentYear; year++) {
+                var option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
+            }
+        });
+
+        
+        document.getElementById('contact').addEventListener('input', function() {
+            var contactField = this;
+            var contactValue = contactField.value;
+            var isValid = /^\d{10}$/.test(contactValue);
+            
+            if (isValid) {
+                contactField.classList.remove('is-invalid');
+                contactField.classList.add('is-valid');
+            } else {
+                contactField.classList.remove('is-valid');
+                contactField.classList.add('is-invalid');
+            }
+        });
+    </script>
+
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

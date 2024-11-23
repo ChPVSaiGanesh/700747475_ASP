@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Property</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 56px; 
+            background-color: #f4f4f4;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .form-control {
+            border-radius: 0.3rem;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+        }
+        .existing-images img {
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 0.3rem;
+        }
+        .btn-primary {
+            margin-top: 10px;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .existing-images {
+            margin-top: 10px;
+        }
+        .navbar {
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #0879f3, #0075f3);
+            border-bottom: 2px solid #0072eb;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: #ffffff;
+        }
+        .navbar-nav .nav-link {
+            color: #ffffff !important; 
+            font-weight: bold; 
+            border: 2px solid transparent;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            padding: 10px 15px;
+        }
+        .navbar-nav .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff !important; 
+            border: 2px solid #ffffff;
+        }
+        .navbar-nav .nav-link.active {
+            background-color: #ffffff;
+            color: #007bff !important; 
+            border: 2px solid #007bff;
+        }
+        .invalid-feedback {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-light fixed-top">
+        <a class="navbar-brand" href="#">Real Estate</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('property_listings', rent_or_buy='buy') }}">Buy</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('property_listings', rent_or_buy='rent') }}">Rent</a>
+                </li>
+                {% if 'logged_in' in session %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('my_properties') }}">My Properties</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('profile') }}">My Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('add_property') }}">Add Property</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('login_user') }}">Login</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <h1 class="mb-4">Update Property</h1>
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="text" id="price" name="price" value="{{ property.price }}" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="area">Area</label>
+                    <input type="text" id="area" name="area" value="{{ property.area }}" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="bedrooms">Bedrooms</label>
+                    <select id="bedrooms" name="bedrooms" class="form-control" required>
+                        {% for i in range(1, 6) %}
+                            <option value="{{ i }}" {% if property.bedrooms == i %}selected{% endif %}>{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bathrooms">Bathrooms</label>
+                    <select id="bathrooms" name="bathrooms" class="form-control" required>
+                        {% for i in range(1, 6) %}
+                            <option value="{{ i }}" {% if property.bathrooms == i %}selected{% endif %}>{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="parking">Parking</label>
+                    <select id="parking" name="parking" class="form-control" required>
+                        <option value="yes" {% if property.parking == 'yes' %}selected{% endif %}>Yes</option>
+                        <option value="no" {% if property.parking == 'no' %}selected{% endif %}>No</option>
+                    </select>    
+                </div>
+                <div class="form-group">
+                    <label for="year_built">Year Built</label>
+                    <select id="year_built" name="year_built" class="form-control" required>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="nearby_places">Nearby Places</label>
+                    <input type="text" id="nearby_places" name="nearby_places" value="{{ property.nearby_places }}" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact">Contact</label>
+                    <input type="text" id="contact" name="contact" value="{{ property.contact }}" class="form-control" pattern="\d{10}" required>
+                    <div class="invalid-feedback">Please enter a valid 10-digit contact number.</div>
+                </div>
+                <div class="form-group">
+                    <label for="rent_or_buy">Status</label>
+                    <select id="rent_or_buy" name="rent_or_buy" class="form-control" required>
+                        <option value="rent" {% if property.rent_or_buy == 'rent' %}selected{% endif %}>Rent</option>
+                        <option value="buy" {% if property.rent_or_buy == 'buy' %}selected{% endif %}>Buy</option>
+                        <option value="sold" {% if property.rent_or_buy == 'sold' %}selected{% endif %}>Sold</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="images">Images</label>
+                    <input type="file" id="images" name="images" class="form-control" multiple>
+                    {% if property.images %}
+                        <div class="existing-images">
+                            {% for image in property.images %}
+                                <img src="{{ url_for('static', filename='uploads/' + image) }}" alt="Property Image" width="100">
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary">Update Property</button>
+            </form>
+        </div>
+    </main>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var yearSelect = document.getElementById('year_built');
+            var currentYear = new Date().getFullYear();
+            var startYear = currentYear - 10;
+
+            for (var year = startYear; year <= currentYear; year++) {
+                var option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                if (year == {{ property.year_built }}) {
+                    option.selected = true;
+                }
+                yearSelect.appendChild(option);
+            }
+        });
+
+        document.getElementById('contact').addEventListener('input', function() {
+            var contactField = this;
+            var contactValue = contactField.value;
+            var isValid = /^\d{10}$/.test(contactValue);
+            
+            if (isValid) {
+                contactField.classList.remove('is-invalid');
+                contactField.classList.add('is-valid');
+            } else {
+                contactField.classList.remove('is-valid');
+                contactField.classList.add('is-invalid');
+            }
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
